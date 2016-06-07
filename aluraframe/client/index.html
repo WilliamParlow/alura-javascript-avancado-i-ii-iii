@@ -54,25 +54,11 @@
     <script src="js/app/views/NegociacoesView.js"></script>
     <script src="js/app/models/Mensagem.js"></script>
     <script src="js/app/views/MensagemView.js"></script>
+    <script src="js/app/services/ProxyFactory.js"></script>
+    <script src="js/app/helpers/Bind.js"></script>
     <script>
         var negociacaoController = new NegociacaoController();
 
-    </script>
-    <script>
-var negociacao = new Proxy(new ListaNegociacoes(), {
-            get: function(target, prop, receiver) {
-            if (['adiciona', 'esvazia'].includes(prop) && typeof(target[prop]) == typeof(Function)) {
-                return function() {
-                    console.log(`interceptando ${prop}`);
-                    Reflect.apply(target[prop], target, arguments);
-                    self._negociacoesView.update(target);
-                };     
-            }
-
-            return Reflect.get(target, prop, receiver);
-            }});
-        console.log(negociacao.quantidade);
-        console.log(negociacao.valor);
     </script>
 </body>
 </html>
